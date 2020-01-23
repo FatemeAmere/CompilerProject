@@ -22,8 +22,8 @@ public class Character {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 41 * hash + this.c;
+        int hash = 7;
+        hash = 47 * hash + this.c;
         return hash;
     }
 
@@ -44,6 +44,34 @@ public class Character {
         }
         return true;
     }
+
+  
+    
+
+    public char getC() {
+        return c;
+    }
+
+    public void setC(char c) {
+        this.c = c;
+    }
+
+    public boolean isIsTerminal() {
+        return isTerminal;
+    }
+
+    public void setIsTerminal(boolean isTerminal) {
+        this.isTerminal = isTerminal;
+    }
+
+    public boolean isIsStartChar() {
+        return isStartChar;
+    }
+
+    public void setIsStartChar(boolean isStartChar) {
+        this.isStartChar = isStartChar;
+    }
+    
     
     
 }
