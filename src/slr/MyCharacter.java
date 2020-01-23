@@ -52,8 +52,8 @@ public class MyCharacter {
         return AssociatedRule;
     }
 
-    public void setAssociatedRule(ArrayList<Rule> AssociatedRule) {
-        this.AssociatedRule = AssociatedRule;
+    public void addToAssociatedRule(Rule r) {
+        this.AssociatedRule.add(r);
     }
 
     public char getC() {
