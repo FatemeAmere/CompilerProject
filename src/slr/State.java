@@ -5,24 +5,27 @@
  */
 package slr;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Polaris
  */
 public class State {
-    private Rule[] rules;
+    private ArrayList<Rule> rules;
 
-    public State(Rule[] rules) {
+    public State(ArrayList<Rule> rules) {
         this.rules = rules;
     }
 
-    public Rule[] getRules() {
+    public ArrayList<Rule> getRules() {
         return rules;
     }
 
-    public void setRules(Rule[] rules) {
+    public void setRules(ArrayList<Rule> rules) {
         this.rules = rules;
     }
-    
+
+  
     
 }
