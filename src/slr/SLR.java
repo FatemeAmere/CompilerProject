@@ -48,6 +48,7 @@ public class SLR {
             Character a = new Character(splited[1].charAt(i),isTerminal,isStartChar);            
             right.add(a);
         }
+        //
         Rule rule = new Rule(left,right);
         
         
