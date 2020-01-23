@@ -19,6 +19,32 @@ public class Vector {
         this.source = source;
         this.Destination = Destination;
     }
+
+    public Character getValue() {
+        return value;
+    }
+
+    public void setValue(Character value) {
+        this.value = value;
+    }
+
+    public State getSource() {
+        return source;
+    }
+
+    public void setSource(State source) {
+        this.source = source;
+    }
+
+    public State getDestination() {
+        return Destination;
+    }
+
+    public void setDestination(State Destination) {
+        this.Destination = Destination;
+    }
+    
+    
     
     
 }

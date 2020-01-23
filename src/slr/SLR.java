@@ -14,12 +14,13 @@ import java.util.Scanner;
  */
 public class SLR {
     static boolean firstRule = true;
-    
+    public static Rule[] Grammer;
     
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
         Scanner scanner = new Scanner(System.in);
         int GrammerSize = scanner.nextInt();
         String rule ;
@@ -27,7 +28,7 @@ public class SLR {
             rule = scanner.next();
             SplitRule(rule);
         }
-        
+        Grammer = new Rule[GrammerSize];
     }
     private static void SplitRule(String r){
         String[] splited = r.split("->",1);
@@ -48,6 +49,7 @@ public class SLR {
             right.add(a);
         }
         Rule rule = new Rule(left,right);
+        
         
         
     }
