@@ -16,8 +16,8 @@ public class SLR {
     static boolean isFirstRule = true;
     public static ArrayList<Rule> grammer;
     static char start;
-    private static ArrayList<Character> terminals = new ArrayList<String>();
-    private static ArrayList<String> nonTerminals = new ArrayList<String>();
+    private static ArrayList<Character> terminals = new ArrayList<Character>();
+    private static ArrayList<Character> nonTerminals = new ArrayList<Character>();
     
     
     /**
@@ -69,17 +69,18 @@ public class SLR {
         isTerminal = CheckTerminal(splited[0].charAt(0));
         isStartChar = CheckStartChar(splited[0].charAt(0));      
         left = new MyCharacter(splited[0].charAt(0),isTerminal,isStartChar);
+        
         if(!nonTerminals.contains(splited[0].charAt(0)+""));
-            nonTerminals.add(splited[0].charAt(0)+"");
+            nonTerminals.add(splited[0].charAt(0));
             
         for (int i = 0; i < splited[1].length(); i++) {
             isTerminal = CheckTerminal(splited[1].charAt(i));
             isStartChar = CheckStartChar(splited[1].charAt(i));  
             MyCharacter a = new MyCharacter(splited[1].charAt(i),isTerminal,isStartChar); 
             if(isTerminal && !terminals.contains(splited[1].charAt(i)+""))
-                terminals.add(splited[1].charAt(i)+"");
+                terminals.add(splited[1].charAt(i));
             else if(!nonTerminals.contains(splited[1].charAt(i)+""));
-                nonTerminals.add(splited[0].charAt(0)+"");
+                nonTerminals.add(splited[0].charAt(0));
             rightArray.add(a);
         }
         Rule firstRule = new Rule(rightArray,left);

@@ -48,7 +48,7 @@ public class diagram {
         return states;
     }
 
-    State makeaState (ArrayList<Rule> rules){
+   // State makeaState (ArrayList<Rule> rules){
         
-    }
+    //}
 }
