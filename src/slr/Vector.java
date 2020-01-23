@@ -10,21 +10,21 @@ package slr;
  * @author Polaris
  */
 public class Vector {
-    private Character value;
+    private MyCharacter value;
     private State source;
     private State Destination;
 
-    public Vector(Character value, State source, State Destination) {
+    public Vector(MyCharacter value, State source, State Destination) {
         this.value = value;
         this.source = source;
         this.Destination = Destination;
     }
 
-    public Character getValue() {
+    public MyCharacter getValue() {
         return value;
     }
 
-    public void setValue(Character value) {
+    public void setValue(MyCharacter value) {
         this.value = value;
     }
 

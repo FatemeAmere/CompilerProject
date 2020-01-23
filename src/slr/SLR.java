@@ -16,6 +16,9 @@ public class SLR {
     static boolean isFirstRule = true;
     public static ArrayList<Rule> grammer;
     static char start;
+    private static ArrayList<Character> terminals = new ArrayList<String>();
+    private static ArrayList<String> nonTerminals = new ArrayList<String>();
+    
     
     /**
      * @param args the command line arguments
@@ -34,20 +37,28 @@ public class SLR {
             System.out.println(grammer.get(i).toString());
         }
         
+        for (int i = 0; i < terminals.size(); i++) {
+            System.out.println(terminals.get(i));
+        }
+        
+        for (int i = 0; i < nonTerminals.size(); i++) {
+            System.out.println(nonTerminals.get(i));
+        }
+        
     }
     private static void SplitRule(String r){
-        ArrayList<Character> rightArray = new ArrayList<>();
+        ArrayList<MyCharacter> rightArray = new ArrayList<>();
         boolean isTerminal;
         boolean isStartChar;
-        Character left;
-        Character right;
+        MyCharacter left;
+        MyCharacter right;
         
         String[] splited = r.split("->",2);
         
         if(isFirstRule){
             start = splited[0].charAt(0);
-            left = new Character('@',false,false);
-            right = new Character(splited[0].charAt(0),false,true);
+            left = new MyCharacter('@',false,false);
+            right = new MyCharacter(splited[0].charAt(0),false,true);
             rightArray.add(right);
             Rule firstRule = new Rule(rightArray,left);
             grammer.add(firstRule);
@@ -57,12 +68,18 @@ public class SLR {
         
         isTerminal = CheckTerminal(splited[0].charAt(0));
         isStartChar = CheckStartChar(splited[0].charAt(0));      
-        left = new Character(splited[0].charAt(0),isTerminal,isStartChar);
-        
+        left = new MyCharacter(splited[0].charAt(0),isTerminal,isStartChar);
+        if(!nonTerminals.contains(splited[0].charAt(0)+""));
+            nonTerminals.add(splited[0].charAt(0)+"");
+            
         for (int i = 0; i < splited[1].length(); i++) {
             isTerminal = CheckTerminal(splited[1].charAt(i));
             isStartChar = CheckStartChar(splited[1].charAt(i));  
-            Character a = new Character(splited[1].charAt(i),isTerminal,isStartChar);            
+            MyCharacter a = new MyCharacter(splited[1].charAt(i),isTerminal,isStartChar); 
+            if(isTerminal && !terminals.contains(splited[1].charAt(i)+""))
+                terminals.add(splited[1].charAt(i)+"");
+            else if(!nonTerminals.contains(splited[1].charAt(i)+""));
+                nonTerminals.add(splited[0].charAt(0)+"");
             rightArray.add(a);
         }
         Rule firstRule = new Rule(rightArray,left);
