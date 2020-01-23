@@ -50,6 +50,15 @@ public class Rule {
     public void setDotPlace(int dotPlace) {
         this.dotPlace = dotPlace;
     }
+
+    @Override
+    public String toString() {
+        String s = left.toString() + "->" ;
+        for (int i = 0; i < right.size();i++) {
+            s += right.get(i).toString();
+        }
+        return s;
+    }
     
     
 }

@@ -5,6 +5,8 @@
  */
 package slr;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Polaris
@@ -13,6 +15,7 @@ public class Character {
     private char c;
     private boolean isTerminal;
     private boolean isStartChar;
+    private ArrayList<Rule> AssociatedRule;
     
     public Character (char c , boolean isTerminal,boolean isStartChar){
         this.c = c;
@@ -45,8 +48,13 @@ public class Character {
         return true;
     }
 
-  
-    
+    public ArrayList<Rule> getAssociatedRule() {
+        return AssociatedRule;
+    }
+
+    public void setAssociatedRule(ArrayList<Rule> AssociatedRule) {
+        this.AssociatedRule = AssociatedRule;
+    }
 
     public char getC() {
         return c;
@@ -71,7 +79,11 @@ public class Character {
     public void setIsStartChar(boolean isStartChar) {
         this.isStartChar = isStartChar;
     }
-    
+
+    @Override
+    public String toString() {
+        return c + "''" +isTerminal + "''" + isStartChar;
+    }
     
     
 }
