@@ -41,6 +41,8 @@ public class SLR {
             System.out.println(terminals.get(i));
         }
         
+        System.out.println();
+        
         for (int i = 0; i < nonTerminals.size(); i++) {
             System.out.println(nonTerminals.get(i));
         }
@@ -70,17 +72,16 @@ public class SLR {
         isStartChar = CheckStartChar(splited[0].charAt(0));      
         left = new MyCharacter(splited[0].charAt(0),isTerminal,isStartChar);
         
-        if(!nonTerminals.contains(splited[0].charAt(0)+""));
+        if(!nonTerminals.contains(splited[0].charAt(0)));
             nonTerminals.add(splited[0].charAt(0));
             
         for (int i = 0; i < splited[1].length(); i++) {
             isTerminal = CheckTerminal(splited[1].charAt(i));
             isStartChar = CheckStartChar(splited[1].charAt(i));  
             MyCharacter a = new MyCharacter(splited[1].charAt(i),isTerminal,isStartChar); 
-            if(isTerminal && !terminals.contains(splited[1].charAt(i)+""))
+            if(isTerminal && !terminals.contains(splited[1].charAt(i)) )              
                 terminals.add(splited[1].charAt(i));
-            else if(!nonTerminals.contains(splited[1].charAt(i)+""));
-                nonTerminals.add(splited[0].charAt(0));
+            
             rightArray.add(a);
         }
         Rule firstRule = new Rule(rightArray,left);
