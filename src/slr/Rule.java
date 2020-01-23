@@ -12,12 +12,29 @@ import java.util.ArrayList;
  * @author Polaris
  */
 public class Rule {
-    Character left;
-    ArrayList<Character> right;
+    private Character left;
+    private ArrayList<Character> right;
     
     public Rule(ArrayList<Character> r,Character l){
         this.right = r;
         this.left = l;
     }
+
+    public Character getLeft() {
+        return left;
+    }
+
+    public void setLeft(Character left) {
+        this.left = left;
+    }
+
+    public ArrayList<Character> getRight() {
+        return right;
+    }
+
+    public void setRight(ArrayList<Character> right) {
+        this.right = right;
+    }
+    
     
 }

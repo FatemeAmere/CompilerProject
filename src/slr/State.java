@@ -10,10 +10,19 @@ package slr;
  * @author Polaris
  */
 public class State {
-    Rule[] rules;
+    private Rule[] rules;
 
     public State(Rule[] rules) {
         this.rules = rules;
     }
+
+    public Rule[] getRules() {
+        return rules;
+    }
+
+    public void setRules(Rule[] rules) {
+        this.rules = rules;
+    }
+    
     
 }

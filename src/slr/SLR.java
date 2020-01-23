@@ -15,6 +15,7 @@ import java.util.Scanner;
 public class SLR {
     static boolean firstRule = true;
     
+    
     /**
      * @param args the command line arguments
      */

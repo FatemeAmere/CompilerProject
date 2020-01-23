@@ -10,9 +10,9 @@ package slr;
  * @author Polaris
  */
 public class Vector {
-    Character value;
-    State source;
-    State Destination;
+    private Character value;
+    private State source;
+    private State Destination;
 
     public Vector(Character value, State source, State Destination) {
         this.value = value;
