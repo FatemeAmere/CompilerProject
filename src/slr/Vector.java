@@ -11,10 +11,10 @@ package slr;
  */
 public class Vector {
     private MyCharacter value;
-    private State source;
-    private State Destination;
+    private int source;
+    private int Destination;
 
-    public Vector(MyCharacter value, State source, State Destination) {
+    public Vector(MyCharacter value, int source, int Destination) {
         this.value = value;
         this.source = source;
         this.Destination = Destination;
@@ -28,21 +28,23 @@ public class Vector {
         this.value = value;
     }
 
-    public State getSource() {
+    public int getSource() {
         return source;
     }
 
-    public void setSource(State source) {
+    public void setSource(int source) {
         this.source = source;
     }
 
-    public State getDestination() {
+    public int getDestination() {
         return Destination;
     }
 
-    public void setDestination(State Destination) {
+    public void setDestination(int Destination) {
         this.Destination = Destination;
     }
+
+  
     
     
     
