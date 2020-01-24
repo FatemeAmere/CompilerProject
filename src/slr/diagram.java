@@ -21,12 +21,9 @@ public class diagram {
         dotLoc = 0;
         currentRule.setDotPlace(dotLoc);
         my_rules.add(currentRule);
-        Character firstRight = currentRule.getRight().get(dotLoc);
+        MyCharacter firstRight = currentRule.getRight().get(dotLoc);
         if(!firstRight.isIsTerminal()){
             for(int j=0 ;j< rules.size(); j++){
-                if(j== ruleNum){
-                    continue;
-                }
                 if(rules.get(j).getLeft().equals(firstRight)){
                     my_rules.add(rules.get(j));
                 }
@@ -37,7 +34,7 @@ public class diagram {
         states.add(s);
         // now we have state0
         
-        for(int j=0 ;j< my_rules.size(); j++){
+        for ( Rule r : my_rules){
             
         }
         

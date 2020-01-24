@@ -11,13 +11,13 @@ import java.util.ArrayList;
  *
  * @author Polaris
  */
-public class Character {
+public class MyCharacter {
     private char c;
     private boolean isTerminal;
     private boolean isStartChar;
     private ArrayList<Rule> AssociatedRule;
     
-    public Character (char c , boolean isTerminal,boolean isStartChar){
+    public MyCharacter (char c , boolean isTerminal,boolean isStartChar){
         this.c = c;
         this.isStartChar = isStartChar;
         this.isTerminal = isTerminal;
@@ -41,7 +41,7 @@ public class Character {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Character other = (Character) obj;
+        final MyCharacter other = (MyCharacter) obj;
         if (this.c != other.c) {
             return false;
         }
@@ -52,8 +52,8 @@ public class Character {
         return AssociatedRule;
     }
 
-    public void setAssociatedRule(ArrayList<Rule> AssociatedRule) {
-        this.AssociatedRule = AssociatedRule;
+    public void addToAssociatedRule(Rule r) {
+        this.AssociatedRule.add(r);
     }
 
     public char getC() {
