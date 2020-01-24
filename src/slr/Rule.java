@@ -95,5 +95,8 @@ public class Rule {
     }
     
     
+    public MyCharacter getAfterDot(){
+        return right.get(dotPlace);
+    }
     
 }
