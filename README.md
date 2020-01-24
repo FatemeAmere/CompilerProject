@@ -1,7 +1,7 @@
 # CompilerProject
 This is an implementation of SLR for Compiler Parser with java.
 
-##Input:
+## Input:
     at first line you must enter number of total rules then enter rules of cfg grammer by order.
     (rule with starting element must be at first).
     
