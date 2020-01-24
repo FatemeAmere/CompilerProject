@@ -44,7 +44,11 @@ public class SLR {
         for (int i = 0; i < nonTerminals.size(); i++) {
             System.out.println(nonTerminals.get(i));
         }
-        
+        //
+        System.out.println("left%%%"+grammer.get(1).getLeft());
+        System.out.println("right%%%"+grammer.get(1).getRight());
+        System.out.println("%%%"+Reduce.computeFollow(grammer.get(7).getLeft()));
+        //
     }
     private static void SplitRule(String r){
         ArrayList<MyCharacter> rightArray = new ArrayList<>();
