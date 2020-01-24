@@ -6,6 +6,7 @@
 package slr;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
@@ -71,6 +72,40 @@ public class Rule {
         }
         return s;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + Objects.hashCode(this.left);
+        hash = 83 * hash + Objects.hashCode(this.right);
+        hash = 83 * hash + this.dotPlace;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Rule other = (Rule) obj;
+        if (this.dotPlace != other.dotPlace) {
+            return false;
+        }
+        if (!Objects.equals(this.left, other.left)) {
+            return false;
+        }
+        if (!Objects.equals(this.right, other.right)) {
+            return false;
+        }
+        return true;
+    }
+    
     
     public MyCharacter getAfterDot(){
         return right.get(dotPlace);
