@@ -60,5 +60,8 @@ public class Rule {
         return s;
     }
     
+    public MyCharacter getAfterDot(){
+        return right.get(dotPlace);
+    }
     
 }
