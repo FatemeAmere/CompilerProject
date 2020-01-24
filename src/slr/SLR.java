@@ -91,6 +91,7 @@ public class SLR {
             }
             System.out.println();
         }
+
         
         
         for(Vector v : vectors){
