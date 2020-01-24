@@ -19,7 +19,6 @@ public class Reduce {
         HashSet<MyCharacter> followSet = new HashSet<MyCharacter>();
         HashSet<MyCharacter> tmpSet = new HashSet<MyCharacter>();
         ArrayList<MyCharacter> right;
-        int rightSize;
         int mainCharIndex;
         MyCharacter nextChar;
 
@@ -29,7 +28,6 @@ public class Reduce {
 
         for (Rule rule : grammer) {
             right = rule.getRight();
-            rightSize = right.size();
 
             if (right.contains(mainChar)) {// if mainChar is in the right side
                 mainCharIndex = right.indexOf(mainChar);
@@ -88,6 +86,16 @@ public class Reduce {
             }
         }
         return firstSet;
+    }
+    
+    public static void addReduces(ArrayList<State> states,Object[][] parseTable){
+        
+        for(State state:states){
+            for(Rule rule:state.getRules()){
+                
+            }
+        }
+        
     }
 
 }

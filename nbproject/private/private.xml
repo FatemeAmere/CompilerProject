@@ -3,8 +3,28 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/mahsa/Documents/NetBeansProjects/CompilerProject/src/slr/SLR.java</file>
             <file>file:/C:/Users/mahsa/Documents/NetBeansProjects/CompilerProject/src/slr/Reduce.java</file>
+=======
+<<<<<<< HEAD
+            <file>file:/C:/Users/marzieh/Documents/NetBeansProjects/CompilerProject/src/slr/State.java</file>
+            <file>file:/C:/Users/marzieh/Documents/NetBeansProjects/CompilerProject/src/slr/Vector.java</file>
+            <file>file:/C:/Users/marzieh/Documents/NetBeansProjects/CompilerProject/src/slr/MyCharacter.java</file>
+            <file>file:/C:/Users/marzieh/Documents/NetBeansProjects/CompilerProject/src/slr/SLR.java</file>
+            <file>file:/C:/Users/marzieh/Documents/NetBeansProjects/CompilerProject/src/slr/Rule.java</file>
+            <file>file:/C:/Users/marzieh/Documents/NetBeansProjects/CompilerProject/src/slr/diagram.java</file>
+            <file>file:/C:/Users/marzieh/Documents/NetBeansProjects/CompilerProject/src/slr/Reduce.java</file>
+=======
+            <file>file:/C:/Users/Polaris/Documents/NetBeansProjects/SLR/src/slr/diagram.java</file>
+            <file>file:/C:/Users/Polaris/Documents/NetBeansProjects/SLR/src/slr/SLR.java</file>
+            <file>file:/C:/Users/Polaris/Documents/NetBeansProjects/SLR/src/slr/Rule.java</file>
+            <file>file:/C:/Users/Polaris/Documents/NetBeansProjects/SLR/src/slr/Vector.java</file>
+            <file>file:/C:/Users/Polaris/Documents/NetBeansProjects/SLR/src/slr/MyCharacter.java</file>
+            <file>file:/C:/Users/Polaris/Documents/NetBeansProjects/SLR/src/slr/Reduce.java</file>
+            <file>file:/C:/Users/Polaris/Documents/NetBeansProjects/SLR/src/slr/State.java</file>
+>>>>>>> 0fe68a56f08d5ffc1876b52b6bdc242ddaa036ab
+>>>>>>> e2f93ab0c863ce293c9bd0879d5171986a2762fa
         </group>
     </open-files>
 </project-private>
