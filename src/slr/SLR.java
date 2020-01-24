@@ -40,7 +40,7 @@ public class SLR {
         }
         
         System.out.println();
-        for(int i = 1 ; i < grammer.size() ; i++)
+        for(int i = 0 ; i < grammer.size() ; i++)
             System.out.println(grammer.get(i).toString());         
         for (int i = 0; i < terminals.size(); i++) 
             System.out.println(terminals.get(i));      
@@ -48,43 +48,55 @@ public class SLR {
         for (int i = 0; i < nonTerminals.size(); i++) 
             System.out.println(nonTerminals.get(i));
         
+        System.out.println("hello diagram");
+        //call diagram #_#
+        diagram d = new diagram(grammer);
+        d.makeDiagram();
         
-        
-        //Fill vectors and states;
-        boolean includeEpsilon = false;
-        int terminalsSize= terminals.size();
-        for(Character c : terminals){
-            if(c == '#'){
-                includeEpsilon = true;
-                terminalsSize --;
-                break;
-            }
-        }
-        int rowSize = nonTerminals.size()+1;
-        int columnSize = terminalsSize+1+1+nonTerminals.size(); //one for begining one for $
-        parseTable = new Object[rowSize][columnSize]; //one for $
-
-        for (int j = 0; j < terminals.size() ; j++) {
-            if(terminals.get(j) != '#' )
-                parseTable[0][j+1] = terminals.get(j);
-        }
-        parseTable[0][terminalsSize+1] = '$';
-        for (int j = 0 ; j < nonTerminals.size() ; j++) {
-            parseTable[0][terminalsSize+2+j] = nonTerminals.get(j);
-        }
-        for (int i = 0; i < nonTerminals.size(); i++) {
-            parseTable[i+1][0] = nonTerminals.get(i);
+        for (State s : d.getStates()){
+            System.out.println(s);
         }
         
+//        
+//        //Fill vectors and states;
+//        boolean includeEpsilon = false;
+//        int terminalsSize= terminals.size();
+//        for(Character c : terminals){
+//            if(c == '#'){
+//                includeEpsilon = true;
+//                terminalsSize --;
+//                break;
+//            }
+//        }
+//        int rowSize = nonTerminals.size()+1;
+//        int columnSize = terminalsSize+1+1+nonTerminals.size(); //one for begining one for $
+//        parseTable = new Object[rowSize][columnSize]; //one for $
+//
+//        for (int j = 0; j < terminals.size() ; j++) {
+//            if(terminals.get(j) != '#' )
+//                parseTable[0][j+1] = terminals.get(j);
+//        }
+//        parseTable[0][terminalsSize+1] = '$';
+//        for (int j = 0 ; j < nonTerminals.size() ; j++) {
+//            parseTable[0][terminalsSize+2+j] = nonTerminals.get(j);
+//        }
+//        for (int i = 0; i < nonTerminals.size(); i++) {
+//            parseTable[i+1][0] = nonTerminals.get(i);
+//        }
+//        
         //ArrayList<String> s = new ArrayList<String>();
         //parseTable[2][3] = s;
         
-        for (int i = 0; i < rowSize ; i++) {
-            for (int j = 0; j < columnSize; j++) {
-                System.out.print(parseTable[i][j] + " , ");
-            }
-            System.out.println();
-        }
+        
+        
+        
+        
+//        for (int i = 0; i < rowSize ; i++) {
+//            for (int j = 0; j < columnSize; j++) {
+//                System.out.print(parseTable[i][j] + " , ");
+//            }
+//            System.out.println();
+//        }
         
     }
     private static void SplitRule(String r){

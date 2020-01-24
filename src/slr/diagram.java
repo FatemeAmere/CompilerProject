@@ -13,15 +13,32 @@ import java.util.ArrayList;
  */
 public class diagram {
 
-    public ArrayList<Rule> rules;
-    public ArrayList<State> states = new ArrayList<>();
-    public ArrayList<Vector> vectors = new ArrayList<>();
+    
+    
 
+    private ArrayList<Rule> rules;
+    private ArrayList<State> states = new ArrayList<>();
+    private ArrayList<Vector> vectors = new ArrayList<>();
+
+    public diagram(ArrayList<Rule> rules) {
+        this.rules = rules;
+    }
+
+    public ArrayList<State> getStates() {
+        return states;
+    }
+
+    public ArrayList<Vector> getVectors() {
+        return vectors;
+    }
+
+    
+    
     void makeDiagram() {
 
         State currentState = createFirstState();
 
-        addStateToDiagram(currentState);
+        //addStateToDiagram(currentState);
 
     }
 
@@ -41,7 +58,7 @@ public class diagram {
             if (nextState.hasContinue()) {
 
                 addStateToDiagram(nextState);
-                
+
             }
         }
     }
@@ -60,23 +77,46 @@ public class diagram {
         return nextState;
     }
 
-    private boolean absentInChars(ArrayList<MyCharacter> vecChars, MyCharacter afterDot) {
+    private ArrayList getVectorChars(State currentState) {
 
+        ArrayList<MyCharacter> vecChars = new ArrayList<>();
+        MyCharacter afterDot;
+        boolean dontAddInVC = false;
+        for (Rule r : currentState.getRules()) {
+
+            for (MyCharacter vc : vecChars) {
+                if (r.getAfterDot().equals(vc)) {
+
+                    vc.addToAssociatedRule(r);
+                    dontAddInVC =true;
+                }
+
+            }
+            
+            if (!dontAddInVC) {
+                r.getAfterDot().addToAssociatedRule(r);
+                vecChars.add(r.getAfterDot());
+            }
+
+        }
+        return vecChars;
+    }
+
+    private MyCharacter absentInChars(ArrayList<MyCharacter> vecChars, MyCharacter charAfterDot) {
+
+        MyCharacter matchedChar = null;
         int notMatched = 0;
         for (MyCharacter vc : vecChars) {
 
-            if (!afterDot.equals(vc)) {
+            if (!charAfterDot.equals(vc)) {
 
-                notMatched++;
+                matchedChar.equals(vc);
 
             }
 
         }
-        if (notMatched == vecChars.size()) {
-            return true;
-        }
 
-        return false;
+        return matchedChar;
     }
 
     private State absentInStates(State nextState) {
@@ -106,7 +146,7 @@ public class diagram {
 
     private State createFirstState() {
         State currentState = new State(null);
-        Rule currentRule = rules.get(0);
+        Rule currentRule=rules.get(0);
         currentRule.setDotPlace(0);
 
         currentState.addRule(currentRule);
@@ -118,17 +158,4 @@ public class diagram {
         return currentState;
     }
 
-    private ArrayList getVectorChars(State currentState) {
-
-        ArrayList<MyCharacter> vecChars = new ArrayList<>();
-        MyCharacter afterDot;
-        for (Rule r : currentState.getRules()) {
-            afterDot = r.getAfterDot();
-            afterDot.addToAssociatedRule(r);//-----> BUG
-            if (absentInChars(vecChars, afterDot)) {
-                vecChars.add(afterDot);
-            }
-        }
-        return vecChars;
-    }
 }
