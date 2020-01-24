@@ -13,6 +13,7 @@ import java.util.Objects;
  * @author Polaris
  */
 public class State {
+
     private ArrayList<Rule> rules;
     private int number;
 
@@ -28,12 +29,29 @@ public class State {
         this.rules = rules;
     }
 
+    public void addRule(Rule rule) {
+        this.rules.add(rule);
+    }
+
     public int getNumber() {
         return number;
     }
 
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    public boolean hasContinue() {
+        int countOfEndDots = 0;
+        for (Rule r : rules) {
+            if (r.getDotPlace() == r.getRight().size()) {
+                countOfEndDots++;
+            }
+        }
+        if (countOfEndDots == rules.size()) {
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -60,7 +78,5 @@ public class State {
         }
         return true;
     }
- 
-  
-    
+
 }

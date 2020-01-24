@@ -6,7 +6,6 @@
 package slr;
 
 import java.util.ArrayList;
-import javax.xml.bind.annotation.XmlElementDecl;
 
 /**
  *
@@ -14,74 +13,121 @@ import javax.xml.bind.annotation.XmlElementDecl;
  */
 public class diagram {
 
-    State foundedObjInArr;
+    public ArrayList<Rule> rules;
+    public ArrayList<State> states = new ArrayList<>();
+    public ArrayList<Vector> vectors = new ArrayList<>();
 
-    ArrayList makeDiagram(ArrayList<Rule> rules) {
-        MyCharacter afterDot;
-        ArrayList<MyCharacter> vecChars = new ArrayList<>();
-        ArrayList states = new ArrayList<>();
-        ArrayList<Rule> my_rules = new ArrayList<>();
-        int dotLoc, ruleNum = -1;
+    void makeDiagram() {
 
-        Rule currentRule = rules.get(0);
-        dotLoc = 0;
-        currentRule.setDotPlace(dotLoc);
-        my_rules.add(currentRule);
-        MyCharacter firstRight = currentRule.getRight().get(dotLoc);
-        if (!firstRight.isIsTerminal()) {
-            for (int j = 0; j < rules.size(); j++) {
-                if (rules.get(j).getLeft().equals(firstRight)) {
-                    my_rules.add(rules.get(j));
-                }
+        State currentState = createFirstState();
 
-            }
-        }
-        State currentState = new State(my_rules);
-        states.add(currentState);
-        // now we have state0
+        addStateToDiagram(currentState);
 
-        for (Rule r : my_rules) {
-            afterDot = r.getAfterDot();
-            if (absentInChars(vecChars, afterDot)) {//TODO
-                vecChars.add(afterDot);
-            }
-        }
+    }
+
+    private void addStateToDiagram(State currentState) {
+
+        ArrayList<MyCharacter> vecChars = getVectorChars(currentState);
 
         for (MyCharacter c : vecChars) {
             State nextState = getNextState(currentState, c);
-            State DuplicateState =absentInStates(states, nextState);
+            State DuplicateState = absentInStates(nextState);
             if (DuplicateState != null) {
-                nextState = absentInStates(states, nextState);
+                nextState.equals(DuplicateState);
             }
-            Vector v = new Vector(c, currentState, nextState);//TODO
+            Vector v = new Vector(c, currentState.getNumber(), nextState.getNumber());//TODO
+            vectors.add(v);
+
+            if (nextState.hasContinue()) {
+
+                addStateToDiagram(nextState);
+                
+            }
         }
-
-        //State s =  new State(my_rules);
-        return states;
-    }
-
-    State makeaState(ArrayList<Rule> rules) {
-
     }
 
     private State getNextState(State s, MyCharacter c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        State nextState = null;
+        for (Rule r : c.getAssociatedRule()) {
+            r.shiftDot();
+            nextState.addRule(r);
+            if (r.getAfterDot().isIsStartChar()) {
+
+                addAnotherRules(nextState, r.getAfterDot());
+            }
+
+        }
     }
 
     private boolean absentInChars(ArrayList<MyCharacter> vecChars, MyCharacter afterDot) {
 
+        int notMatched = 0;
         for (MyCharacter vc : vecChars) {
 
+            if (!afterDot.equals(vc)) {
+
+                notMatched++;
+
+            }
+
+        }
+        if (notMatched == vecChars.size()) {
+            return true;
         }
 
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return false;
     }
 
-    private State absentInStates(ArrayList states, State nextState) {
+    private State absentInStates(State nextState) {
 
-        for (MyCharacter vc : vecChars) {
+        State matchedState = null;
+        for (State s : states) {
+
+            if (nextState.equals(s)) {
+
+                matchedState.equals(s);
+
+            }
+        }
+
+        return matchedState;
+    }
+
+    private void addAnotherRules(State currentState, MyCharacter firstRight) {
+        for (int j = 0; j < rules.size(); j++) {
+            if (rules.get(j).getLeft().equals(firstRight)) {
+                Rule r = new Rule(rules.get(j).getRight(), rules.get(j).getLeft(), 0);
+                currentState.addRule(r);
+            }
 
         }
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private State createFirstState() {
+        State currentState = new State(null);
+        Rule currentRule = rules.get(0);
+        currentRule.setDotPlace(0);
+
+        currentState.addRule(currentRule);
+        if (!currentRule.getAfterDot().isIsTerminal()) {
+            addAnotherRules(currentState, currentRule.getAfterDot());
+
+        }
+        states.add(currentState);
+        return currentState;
+    }
+
+    private ArrayList getVectorChars(State currentState) {
+
+        ArrayList<MyCharacter> vecChars = new ArrayList<>();
+        MyCharacter afterDot;
+        for (Rule r : currentState.getRules()) {
+            afterDot = r.getAfterDot();
+            afterDot.addToAssociatedRule(r);//-----> BUG
+            if (absentInChars(vecChars, afterDot)) {
+                vecChars.add(afterDot);
+            }
+        }
+        return vecChars;
     }
 }

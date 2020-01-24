@@ -26,7 +26,19 @@ public class Rule {
         this.left = l;
         this.dotPlace = dotPlace;
     }
-            
+          
+    public void shiftDot(){
+        this.dotPlace++;
+    }
+    
+    public boolean isDotEnd(){
+        
+        if (dotPlace == right.size()) {
+            return true;
+           
+        }
+        return false;
+    }
     public MyCharacter getLeft() {
         return left;
     }
