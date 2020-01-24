@@ -14,6 +14,9 @@ This is an implementation of SLR for Compiler Parser with java.
          S->A
          S->B
      
+     
+## Output:
+    SLR parse table 
     
     
 
