@@ -13,6 +13,7 @@ public class Character {
     private char c;
     private boolean isTerminal;
     private boolean isStartChar;
+
     
     public Character (char c , boolean isTerminal,boolean isStartChar){
         this.c = c;
