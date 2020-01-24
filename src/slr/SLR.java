@@ -42,78 +42,21 @@ public class SLR {
         }
         
         //Debug
-        System.out.println();
-        for(int i = 1 ; i < grammer.size() ; i++)
-            System.out.println(grammer.get(i).toString());         
-        for (int i = 0; i < terminals.size(); i++) 
-            System.out.println(terminals.get(i));      
-        System.out.println();
-        for (int i = 0; i < nonTerminals.size(); i++) 
-            System.out.println(nonTerminals.get(i));
+        printGrammerTerminalAndNonTerminals();        
+        
+        //Fill vectors and states; 
         
         
         
-        //Fill vectors and states;
+        
+        
         //then
+        //creating parse table      
+        createParseTable();      
         
-        boolean includeEpsilon = false;
-        int terminalsSize= terminals.size();
-        for(Character c : terminals){
-            if(c == '#'){
-                includeEpsilon = true;
-                terminalsSize --;
-                break;
-            }
-        }
-        rowSize = states.size()+1;
-        columnSize = terminalsSize+1+1+nonTerminals.size(); //one for begining one for $
-        parseTable = new Object[rowSize][columnSize]; //one for $
-
-        for (int j = 0; j < terminals.size() ; j++) {
-            if(terminals.get(j) != '#' )
-                parseTable[0][j+1] = terminals.get(j);
-        }
-        parseTable[0][terminalsSize+1] = '$';
-        for (int j = 0 ; j < nonTerminals.size() ; j++) {
-            parseTable[0][terminalsSize+2+j] = nonTerminals.get(j);
-        }
-        for (int i = 0; i < states.size(); i++) {
-            parseTable[i+1][0] = i;
-        }
-        
-        //ArrayList<String> s = new ArrayList<String>();
-        //parseTable[2][3] = s;
-        
-        //Debug
-        for (int i = 0; i < rowSize ; i++) {
-            for (int j = 0; j < columnSize; j++) {
-                System.out.print(parseTable[i][j] + " , ");
-            }
-            System.out.println();
-        }
-
-        
-        
-        for(Vector v : vectors){
-            MyCharacter c = v.getValue();
-            int columnIndex = getColumnIndex(c.getC());
-            if(c.isIsTerminal()){ //*shift
-                ArrayList<String> s = (ArrayList<String>) parseTable[v.getSource()+1][columnIndex];
-                String string = "s"+ v.getDestination();
-                if(s!=null){
-                    s.add(string);                   
-                }
-                else{
-                    s = new ArrayList<String>();
-                    s.add(string);
-                }
-                parseTable[v.getSource()+1][columnIndex] = s;               
-            }
-            else{ //*got to
-                parseTable[v.getSource()+1][columnIndex] = v.getDestination();
-            }    
-        }    
-        
+        ShiftAndGoto();
+         
+        PrintParseTable();
     }
     
     
@@ -189,5 +132,77 @@ public class SLR {
             return true;
         
         return false;
+    }
+    
+    private static void ShiftAndGoto(){
+        for(Vector v : vectors){
+            MyCharacter c = v.getValue();
+            int columnIndex = getColumnIndex(c.getC());
+            if(c.isIsTerminal()){ //*shift
+                ArrayList<String> s = (ArrayList<String>) parseTable[v.getSource()+1][columnIndex];
+                String string = "s"+ v.getDestination();
+                if(s!=null){
+                    s.add(string);                   
+                }
+                else{
+                    s = new ArrayList<String>();
+                    s.add(string);
+                }
+                parseTable[v.getSource()+1][columnIndex] = s;               
+            }
+            else{ //*got to
+                parseTable[v.getSource()+1][columnIndex] = v.getDestination();
+            }    
+        }   
+    }
+    
+    private static void createParseTable(){
+        boolean includeEpsilon = false;
+        int terminalsSize= terminals.size();
+        for(Character c : terminals){
+            if(c == '#'){
+                includeEpsilon = true;
+                terminalsSize --;
+                break;
+            }
+        }
+        rowSize = states.size()+1;
+        columnSize = terminalsSize+1+1+nonTerminals.size(); //one for begining one for $
+        parseTable = new Object[rowSize][columnSize]; //one for $
+
+        for (int j = 0; j < terminals.size() ; j++) {
+            if(terminals.get(j) != '#' )
+                parseTable[0][j+1] = terminals.get(j);
+        }
+        parseTable[0][terminalsSize+1] = '$';
+        for (int j = 0 ; j < nonTerminals.size() ; j++) {
+            parseTable[0][terminalsSize+2+j] = nonTerminals.get(j);
+        }
+        for (int i = 0; i < states.size(); i++) {
+            parseTable[i+1][0] = i;
+        }
+    }
+        
+    
+    private static void printGrammerTerminalAndNonTerminals(){
+        //Debug
+        System.out.println();
+        for(int i = 0 ; i < grammer.size() ; i++)
+            System.out.println(grammer.get(i).toString());         
+        for (int i = 0; i < terminals.size(); i++) 
+            System.out.println(terminals.get(i));      
+        System.out.println();
+        for (int i = 0; i < nonTerminals.size(); i++) 
+            System.out.println(nonTerminals.get(i));
+        
+    }
+    
+    private static void PrintParseTable(){
+        for (int i = 0; i < rowSize ; i++) {
+            for (int j = 0; j < columnSize; j++) {
+                System.out.print(parseTable[i][j] + " , ");
+            }
+            System.out.println();
+        }
     }
 }
