@@ -57,6 +57,7 @@ public class diagram {
             }
 
         }
+        return nextState;
     }
 
     private boolean absentInChars(ArrayList<MyCharacter> vecChars, MyCharacter afterDot) {

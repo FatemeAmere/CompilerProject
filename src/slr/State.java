@@ -44,7 +44,7 @@ public class State {
     public boolean hasContinue() {
         int countOfEndDots = 0;
         for (Rule r : rules) {
-            if (r.getDotPlace() == r.getRight().size()) {
+            if (r.isDotEnd()) {
                 countOfEndDots++;
             }
         }
