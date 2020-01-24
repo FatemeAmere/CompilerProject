@@ -19,12 +19,14 @@ public class SLR {
     private static ArrayList<Character> terminals = new ArrayList<Character>();
     private static ArrayList<Character> nonTerminals = new ArrayList<Character>();
     
+    static int rowSize;
+    static int columnSize;
     //HashSet<Character> terminals1 = new HashSet<Character>();
     //ArrayList<ArrayList<Object>> parseTable = new ArrayList<ArrayList<Object>>();
     static Object[][] parseTable;
     
-    ArrayList<Vector> vectors = new ArrayList<Vector>();
-    ArrayList<State> states = new ArrayList<State>();
+    static ArrayList<Vector> vectors = new ArrayList<Vector>();
+    static ArrayList<State> states = new ArrayList<State>();
     
     /**
      * @param args the command line arguments
@@ -39,6 +41,7 @@ public class SLR {
             SplitRule(rule);
         }
         
+        //Debug
         System.out.println();
         for(int i = 1 ; i < grammer.size() ; i++)
             System.out.println(grammer.get(i).toString());         
@@ -51,6 +54,8 @@ public class SLR {
         
         
         //Fill vectors and states;
+        //then
+        
         boolean includeEpsilon = false;
         int terminalsSize= terminals.size();
         for(Character c : terminals){
@@ -60,8 +65,8 @@ public class SLR {
                 break;
             }
         }
-        int rowSize = nonTerminals.size()+1;
-        int columnSize = terminalsSize+1+1+nonTerminals.size(); //one for begining one for $
+        rowSize = states.size()+1;
+        columnSize = terminalsSize+1+1+nonTerminals.size(); //one for begining one for $
         parseTable = new Object[rowSize][columnSize]; //one for $
 
         for (int j = 0; j < terminals.size() ; j++) {
@@ -72,13 +77,14 @@ public class SLR {
         for (int j = 0 ; j < nonTerminals.size() ; j++) {
             parseTable[0][terminalsSize+2+j] = nonTerminals.get(j);
         }
-        for (int i = 0; i < nonTerminals.size(); i++) {
-            parseTable[i+1][0] = nonTerminals.get(i);
+        for (int i = 0; i < states.size(); i++) {
+            parseTable[i+1][0] = i;
         }
         
         //ArrayList<String> s = new ArrayList<String>();
         //parseTable[2][3] = s;
         
+        //Debug
         for (int i = 0; i < rowSize ; i++) {
             for (int j = 0; j < columnSize; j++) {
                 System.out.print(parseTable[i][j] + " , ");
@@ -86,7 +92,40 @@ public class SLR {
             System.out.println();
         }
         
+        
+        for(Vector v : vectors){
+            MyCharacter c = v.getValue();
+            int columnIndex = getColumnIndex(c.getC());
+            if(c.isIsTerminal()){ //*shift
+                ArrayList<String> s = (ArrayList<String>) parseTable[v.getSource()+1][columnIndex];
+                String string = "s"+ v.getDestination();
+                if(s!=null){
+                    s.add(string);                   
+                }
+                else{
+                    s = new ArrayList<String>();
+                    s.add(string);
+                }
+                parseTable[v.getSource()+1][columnIndex] = s;               
+            }
+            else{ //*got to
+                parseTable[v.getSource()+1][columnIndex] = v.getDestination();
+            }    
+        }    
+        
     }
+    
+    
+    private static int getColumnIndex(char c){
+        for (int j = 1; j < columnSize ; j++) {
+            char inTable = (char)parseTable[0][j];
+            if(inTable == c){
+                return j;
+            }
+        }
+        return -1;
+    }
+    
     private static void SplitRule(String r){
         ArrayList<MyCharacter> rightArray = new ArrayList<>();
         boolean isTerminal;

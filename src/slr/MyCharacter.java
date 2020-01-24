@@ -80,6 +80,8 @@ public class MyCharacter {
         this.isStartChar = isStartChar;
     }
 
+    
+    
     @Override
     public String toString() {
         return c + "''" +isTerminal + "''" + isStartChar;
