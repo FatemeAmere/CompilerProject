@@ -87,15 +87,45 @@ public class Reduce {
         }
         return firstSet;
     }
+
+    public static void addReduces(ArrayList<State> states, Object[][] parseTable) {
+        HashSet<MyCharacter> tmpSet = new HashSet<MyCharacter>();
+        int ruleNumber;
+        Object tmpObject;
+        ArrayList<String> cell;
+
+        for (State state : states) {
+            for (Rule rule : state.getRules()) {
+                if (rule.isDotEnd()) {
+                    tmpSet = Reduce.computeFollow(rule.getLeft());
+                    ruleNumber = computeRuleNumber(rule);
+                    for (MyCharacter ch : tmpSet) {
+                        tmpObject = parseTable[state.getNumber() + 1][getColumnIndex(ch.getC())];
+                        
+                        if (tmpObject == null) {
+                            tmpObject = new ArrayList<String>();
+                        }
+
+                        cell = (ArrayList<String>) tmpObject;
+                        cell.add("r" + ruleNumber);
+                    }
+                }
+            }
+        }
+
+    }
     
-    public static void addReduces(ArrayList<State> states,Object[][] parseTable){
+    public static int computeRuleNumber(Rule mainRule){
+        int ruleNumber = 0 ;
         
-        for(State state:states){
-            for(Rule rule:state.getRules()){
-                
+        for(Rule rule:grammer){
+            if(rule.getLeft().equals(mainRule.getLeft()) &&
+                    rule.getRight().equals(mainRule.getRight())){
+                ruleNumber = grammer.indexOf(rule);
             }
         }
         
+        return ruleNumber;
     }
 
 }
