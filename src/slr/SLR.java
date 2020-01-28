@@ -46,21 +46,30 @@ public class SLR {
         //printGrammerTerminalAndNonTerminals();        
         //Fill vectors and states; 
         makeDiagram();
+        setStatesNumber();
 
-//        int count=0;
-//        for (State s : states) {
-//            System.out.println("state"+count+" "+s+"\n");
-//            count++;
-//        }
-//        count=0;
-//
-//        System.out.println("\n\n");
-//        for (Vector v : vectors) {
-//            System.out.println("vector"+count+" "+v+"\n");
-//            count++;
-//        }
+        int count=0;
+        for (State s : states) {
+            System.out.println("state"+count+" "+s+"\n");
+            count++;
+        }
+        count=0;
 
+        System.out.println("\n\n");
+        for (Vector v : vectors) {
+            System.out.println("vector"+count+" "+v+"\n");
+            count++;
+        }
+
+        //**************************************** Mahi tests for reduce
+        System.out.println("heLLO");
+        createParseTable();
+        printParseTable();
+        Reduce.addReduces(states, parseTable);
+        printParseTable();
         
+        //****************************************
+       
         //then
         //creating parse table      
 //        createParseTable();      
@@ -72,7 +81,7 @@ public class SLR {
 
     
     //---------------------------------------------------------------------------------------------------
-    private static int getColumnIndex(char c) {
+    public static int getColumnIndex(char c) {
         for (int j = 1; j < columnSize; j++) {
             char inTable = (char) parseTable[0][j];
             if (inTable == c) {
@@ -193,6 +202,12 @@ public class SLR {
         for (int i = 0; i < states.size(); i++) {
             parseTable[i + 1][0] = i;
         }
+        
+        for(int i=1;i<rowSize;i++){
+            for(int j=1;j<columnSize;j++){
+                parseTable[i][j]=new ArrayList<String>();
+            }
+        }
     }
 
     private static void printGrammerTerminalAndNonTerminals() {
@@ -211,7 +226,7 @@ public class SLR {
 
     }
 
-    private static void PrintParseTable() {
+    private static void printParseTable() {
         for (int i = 0; i < rowSize; i++) {
             for (int j = 0; j < columnSize; j++) {
                 System.out.print(parseTable[i][j] + " , ");
@@ -339,6 +354,14 @@ public class SLR {
         }
 
         return matchedState;
+    }
+
+    public static void setStatesNumber() {
+        
+        for (State s:states){
+            s.setNumber(states.indexOf(s));
+        }
+        
     }
 
 }

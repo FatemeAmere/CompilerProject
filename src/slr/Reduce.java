@@ -96,35 +96,40 @@ public class Reduce {
 
         for (State state : states) {
             for (Rule rule : state.getRules()) {
+                //System.out.println("state: " + state);
+                //System.out.println("rule: " + rule);
                 if (rule.isDotEnd()) {
                     tmpSet = Reduce.computeFollow(rule.getLeft());
+                    //System.out.println("tmpSeet: "+tmpSet);
                     ruleNumber = computeRuleNumber(rule);
                     for (MyCharacter ch : tmpSet) {
-                        tmpObject = parseTable[state.getNumber() + 1][getColumnIndex(ch.getC())];
-                        
-                        if (tmpObject == null) {
-                            tmpObject = new ArrayList<String>();
-                        }
+                        tmpObject = parseTable[state.getNumber() + 1][SLR.getColumnIndex(ch.getC())];
 
                         cell = (ArrayList<String>) tmpObject;
-                        cell.add("r" + ruleNumber);
+                        System.out.println("cell: " + cell);
+                        if (rule.getLeft().getC() == '@') {
+                            cell.add("Acc");
+                        } else {
+                            cell.add("r" + ruleNumber);
+                            System.out.println("updated cell: " + cell);
+                        }
                     }
                 }
             }
         }
 
     }
-    
-    public static int computeRuleNumber(Rule mainRule){
-        int ruleNumber = 0 ;
-        
-        for(Rule rule:grammer){
-            if(rule.getLeft().equals(mainRule.getLeft()) &&
-                    rule.getRight().equals(mainRule.getRight())){
+
+    public static int computeRuleNumber(Rule mainRule) {
+        int ruleNumber = 0;
+
+        for (Rule rule : grammer) {
+            if (rule.getLeft().equals(mainRule.getLeft())
+                    && rule.getRight().equals(mainRule.getRight())) {
                 ruleNumber = grammer.indexOf(rule);
             }
         }
-        
+
         return ruleNumber;
     }
 
