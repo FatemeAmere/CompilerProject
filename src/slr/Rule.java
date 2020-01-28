@@ -70,6 +70,8 @@ public class Rule {
         for (int i = 0; i < right.size();i++) {
             s += right.get(i).toString();
         }
+        String tmp=" ("+dotPlace+") ";
+        s+=tmp;
         return s;
     }
 
@@ -108,6 +110,10 @@ public class Rule {
     
     
     public MyCharacter getAfterDot(){
+        if(dotPlace==right.size()){
+            MyCharacter endChar = new MyCharacter('%', true, false);
+            return endChar;
+        }
         return right.get(dotPlace);
     }
     

@@ -17,8 +17,8 @@ public class State {
     private ArrayList<Rule> rules;
     private int number;
 
-    public State(ArrayList<Rule> rules) {
-        this.rules = rules;
+    public State() {
+        this.rules = new ArrayList<Rule>();
     }
 
     public ArrayList<Rule> getRules() {
@@ -30,6 +30,7 @@ public class State {
     }
 
     public void addRule(Rule rule) {
+        
         this.rules.add(rule);
     }
 
@@ -49,9 +50,9 @@ public class State {
             }
         }
         if (countOfEndDots == rules.size()) {
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -79,4 +80,10 @@ public class State {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "State{" + "rules=" + rules + ", number=" + number + '}';
+    }
+
+    
 }
