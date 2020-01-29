@@ -44,7 +44,7 @@ public class SLR {
         }
 
         //Debug
-        //printGrammerTerminalAndNonTerminals();        
+        printGrammerTerminalAndNonTerminals();        
         //Fill vectors and states; 
         makeDiagram(); // marzi's work
 
@@ -127,7 +127,7 @@ public class SLR {
             isTerminal = CheckTerminal(splited[1].charAt(i));
             isStartChar = CheckStartChar(splited[1].charAt(i));
             MyCharacter a = new MyCharacter(splited[1].charAt(i), isTerminal, isStartChar);
-            if (isTerminal && !terminals.contains(splited[1].charAt(i))) {
+            if (isTerminal && !terminals.contains(splited[1].charAt(i)) && splited[1].charAt(i) != '#') {
                 terminals.add(splited[1].charAt(i));
             }
 
@@ -174,17 +174,8 @@ public class SLR {
     }
 
     private static void createParseTable() {
-        boolean includeEpsilon = false;
-        int terminalsSize = terminals.size();
-        for (Character c : terminals) {
-            if (c == '#') {
-                includeEpsilon = true;
-                terminalsSize--;
-                break;
-            }
-        }
         rowSize = states.size() + 1;
-        columnSize = terminalsSize + 1 + 1 + nonTerminals.size(); //one for begining one for $
+        columnSize = terminals.size() + 1 + 1 + nonTerminals.size(); //one for begining one for $
         parseTable = new Object[rowSize][columnSize]; //one for $
 
         for (int j = 0; j < terminals.size(); j++) {
@@ -192,9 +183,9 @@ public class SLR {
                 parseTable[0][j + 1] = terminals.get(j);
             }
         }
-        parseTable[0][terminalsSize + 1] = '$';
+        parseTable[0][terminals.size() + 1] = '$';
         for (int j = 0; j < nonTerminals.size(); j++) {
-            parseTable[0][terminalsSize + 2 + j] = nonTerminals.get(j);
+            parseTable[0][terminals.size() + 2 + j] = nonTerminals.get(j);
         }
         for (int i = 0; i < states.size(); i++) {
             parseTable[i + 1][0] = i;
