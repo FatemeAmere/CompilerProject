@@ -63,18 +63,18 @@ public class SLR {
 
         //**************************************** Mahi tests for reduce
 //        System.out.println("heLLO");
-//        createParseTable();
+            createParseTable();
 //        printParseTable();
-//        Reduce.addReduces(states, parseTable);
-//        printParseTable();
+           Reduce.addReduces(states, parseTable);
+         printParseTable();
         //****************************************
         //then
         //creating parse table      
 //        createParseTable();      
 //        
-//        ShiftAndGoto();
+        ShiftAndGoto();
 //         
-//        PrintParseTable();
+        printParseTable();
     }
 
     //---------------------------------------------------------------------------------------------------
@@ -160,12 +160,12 @@ public class SLR {
             if (c.isIsTerminal()) { //*shift
                 ArrayList<String> s = (ArrayList<String>) parseTable[v.getSource() + 1][columnIndex];
                 String string = "s" + v.getDestination();
-                if (s != null) {
+                //if (s != null) {
+                  //  s.add(string);
+                //} else {
+                  //  s = new ArrayList<String>();
                     s.add(string);
-                } else {
-                    s = new ArrayList<String>();
-                    s.add(string);
-                }
+               // }
                 parseTable[v.getSource() + 1][columnIndex] = s;
             } else { //*got to
                 parseTable[v.getSource() + 1][columnIndex] = v.getDestination();
@@ -411,10 +411,10 @@ R->L
 
 
 6
-E->EaT
+E->E+T
 E->T
 T->TF
-F->Fb
+F->F*
 F->a
 F->b
 ---
