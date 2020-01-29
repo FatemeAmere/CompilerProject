@@ -57,6 +57,9 @@ public class MyCharacter {
         this.AssociatedRule.add(r);
     }
 
+    public void clearAssociateForC(){
+        AssociatedRule.clear();
+    }
     public char getC() {
         return c;
     }
