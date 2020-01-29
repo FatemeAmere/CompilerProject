@@ -64,9 +64,9 @@ public class SLR {
         //**************************************** Mahi tests for reduce
 //        System.out.println("heLLO");
             createParseTable();
-//        printParseTable();
+        printParseTable();
            Reduce.addReduces(states, parseTable);
-         printParseTable();
+         printParseTable();System.out.println("");
         //****************************************
         //then
         //creating parse table      
@@ -178,6 +178,8 @@ public class SLR {
         int terminalsSize = terminals.size();
         for (Character c : terminals) {
             if (c == '#') {
+                terminals.remove(c);
+                System.out.println("222: "+terminals);
                 includeEpsilon = true;
                 terminalsSize--;
                 break;
@@ -188,9 +190,10 @@ public class SLR {
         parseTable = new Object[rowSize][columnSize]; //one for $
 
         for (int j = 0; j < terminals.size(); j++) {
-            if (terminals.get(j) != '#') {
+            System.out.println("terminal:"+terminals.get(j));
+            //if (terminals.get(j) != '#') {
                 parseTable[0][j + 1] = terminals.get(j);
-            }
+            //}
         }
         parseTable[0][terminalsSize + 1] = '$';
         for (int j = 0; j < nonTerminals.size(); j++) {

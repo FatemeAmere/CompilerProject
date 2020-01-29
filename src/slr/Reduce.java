@@ -33,18 +33,42 @@ public class Reduce {
                 mainCharIndex = right.indexOf(mainChar);
 
                 if (mainCharIndex != right.size() - 1) {//if mainChar is not the last Char
-                    nextChar = right.get(mainCharIndex + 1);
+                    //first version
+                    /*nextChar = right.get(mainCharIndex + 1);
 
                     tmpSet = computeFirst(nextChar);
 
                     followSet.addAll(tmpSet);
                     if (tmpSet.contains(new MyCharacter('#', true, false))) {
                         followSet.addAll(computeFollow(rule.getLeft()));
+                    } */
+                    //************************* //second version
+                    for (int i = mainCharIndex + 1; i < right.size(); i++) {
+                        MyCharacter ch = right.get(i);
+                        //System.out.println("$" + ch);
+                        tmpSet = computeFirst(ch);
+
+                        followSet.addAll(tmpSet);
+                        if (!tmpSet.contains(new MyCharacter('#', true, false))) {
+                            break;
+                        } else if (i == right.size() - 1) {
+                            mainChar.getFollowDependencies().add(rule.getLeft());
+                            if (!mainChar.equals(rule.getLeft())) {// for rules like: A->BA
+                                if (!rule.getLeft().getFollowDependencies().contains(mainChar)) {
+                                    followSet.addAll(computeFollow(rule.getLeft()));
+                                }
+                            }
+                        }
+
                     }
 
+                    //*************************
                 } else {
+                    mainChar.getFollowDependencies().add(rule.getLeft());
                     if (!mainChar.equals(rule.getLeft())) {// for rules like: A->BA
-                        followSet.addAll(computeFollow(rule.getLeft()));
+                        if (!rule.getLeft().getFollowDependencies().contains(mainChar)) {
+                            followSet.addAll(computeFollow(rule.getLeft()));
+                        }
                     }
                 }
             }
@@ -53,6 +77,21 @@ public class Reduce {
         followSet.remove(new MyCharacter('#', true, false));
 
         return followSet;
+    }
+
+    public static HashSet computeFollowFinal(MyCharacter mainChar) {    
+        HashSet<MyCharacter> mainCharFollowSet = new HashSet<MyCharacter>();      
+        HashSet<MyCharacter> depFollowSet = new HashSet<MyCharacter>();
+        
+        mainCharFollowSet = computeFollow(mainChar);
+        
+        for(MyCharacter ch:mainChar.getFollowDependencies()){
+            depFollowSet.addAll(computeFollow(ch));
+        }
+        
+        mainCharFollowSet.addAll(depFollowSet);
+        
+        return mainCharFollowSet;
     }
 
     public static HashSet computeFirst(MyCharacter mainChar) {
@@ -66,20 +105,23 @@ public class Reduce {
         } else {
 
             for (Rule rule : grammer) {
-                //System.out.println("MainCHar: "+mainChar);
+                //System.out.println("MainCHar: " + mainChar);
                 left = rule.getLeft();
-                //System.out.println("left: "+left);
+                //System.out.println("left: " + left);
                 right = rule.getRight();
-                //System.out.println("right: "+right);
+                //System.out.println("right: " + right);
 
                 if (left.equals(mainChar)) {// if mainChar is in the right side
 
                     for (MyCharacter ch : right) {
-                        //System.out.println("$"+ch);
-                        tmpSet = computeFirst(ch);
-                        firstSet.addAll(tmpSet);
-                        if (!tmpSet.contains(new MyCharacter('#', true, false))) {
-                            break;
+                        //System.out.println("$" + ch);
+                        if (!ch.equals(mainChar)) {// for rules like E->E+T
+                            tmpSet = computeFirst(ch);
+
+                            firstSet.addAll(tmpSet);
+                            if (!tmpSet.contains(new MyCharacter('#', true, false))) {
+                                break;
+                            }
                         }
                     }
                 }
@@ -99,19 +141,19 @@ public class Reduce {
                 //System.out.println("state: " + state);
                 //System.out.println("rule: " + rule);
                 if (rule.isDotEnd()) {
-                    tmpSet = Reduce.computeFollow(rule.getLeft());
-                    //System.out.println("tmpSeet: "+tmpSet);
+                    tmpSet = computeFollowFinal(rule.getLeft());
+                    //System.out.println("tmpSet: " + tmpSet);
                     ruleNumber = computeRuleNumber(rule);
                     for (MyCharacter ch : tmpSet) {
                         tmpObject = parseTable[state.getNumber() + 1][SLR.getColumnIndex(ch.getC())];
 
                         cell = (ArrayList<String>) tmpObject;
-                        System.out.println("cell: " + cell);
+                        //System.out.println("cell: " + cell);
                         if (rule.getLeft().getC() == '@') {
                             cell.add("Acc");
                         } else {
                             cell.add("r" + ruleNumber);
-                            System.out.println("updated cell: " + cell);
+                            //System.out.println("updated cell: " + cell);
                         }
                     }
                 }

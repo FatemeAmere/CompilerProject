@@ -6,6 +6,7 @@
 package slr;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  *
@@ -16,12 +17,14 @@ public class MyCharacter {
     private boolean isTerminal;
     private boolean isStartChar;
     private ArrayList<Rule> AssociatedRule;
+    private HashSet<MyCharacter> followDependencies ;
     
     public MyCharacter (char c , boolean isTerminal,boolean isStartChar){
         this.c = c;
         this.isStartChar = isStartChar;
         this.isTerminal = isTerminal;
         AssociatedRule = new ArrayList<>();
+        followDependencies = new HashSet<MyCharacter>();
     }
 
     @Override
@@ -90,6 +93,13 @@ public class MyCharacter {
     public String toString() {
         return c +"";
     }
-    
+
+    public HashSet<MyCharacter> getFollowDependencies() {
+        return followDependencies;
+    }
+
+    public void setFollowDependencies(HashSet<MyCharacter> followDependencies) {
+        this.followDependencies = followDependencies;
+    }
     
 }
