@@ -44,6 +44,11 @@ public class Vector {
         this.Destination = Destination;
     }
 
+    @Override
+    public String toString() {
+        return "Vector{" + "value=" + value + "  /////   " + source + " ------> " + Destination + '}';
+    }
+
   
     
     

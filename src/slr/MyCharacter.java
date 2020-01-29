@@ -21,6 +21,7 @@ public class MyCharacter {
         this.c = c;
         this.isStartChar = isStartChar;
         this.isTerminal = isTerminal;
+        AssociatedRule = new ArrayList<>();
     }
 
     @Override
@@ -80,9 +81,11 @@ public class MyCharacter {
         this.isStartChar = isStartChar;
     }
 
+    
+    
     @Override
     public String toString() {
-        return c + "''" +isTerminal + "''" + isStartChar;
+        return c +"";
     }
     
     
