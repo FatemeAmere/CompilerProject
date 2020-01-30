@@ -46,15 +46,8 @@ public class SLR {
         //Debug
         //printGrammerTerminalAndNonTerminals();        
         //Fill vectors and states; 
-        
-        
-        
-        
         makeDiagram(); // marzi's work
 
-        
-        
-        
         int count = 0;
         for (State s : states) {
             System.out.println("state" + count + " " + s + "\n");
@@ -74,7 +67,6 @@ public class SLR {
 //        printParseTable();
 //        Reduce.addReduces(states, parseTable);
 //        printParseTable();
-
         //****************************************
         //then
         //creating parse table      
@@ -243,7 +235,7 @@ public class SLR {
     //-----------------------------------------------------------------------
     private static void makeDiagram() {
 
-        State firstState = createFirstState(); //TODO => add another
+        State firstState = createFirstState();
         addStateToDiagram(firstState);
 
     }
@@ -269,9 +261,15 @@ public class SLR {
     private static void addAnotherRules(State currentState, MyCharacter firstRight) {
         for (int j = 0; j < grammer.size(); j++) {
             if (grammer.get(j).getLeft().equals(firstRight)) {
-                Rule r = new Rule(grammer.get(j).getRight(), grammer.get(j).getLeft(), 0);
-                boolean presentInRules =false;
-                for ( Rule rule :currentState.getRules()) {
+                Rule r;
+                if (grammer.get(j).getRight().get(0).getC() == '#') {
+
+                    r = new Rule(grammer.get(j).getRight(), grammer.get(j).getLeft(), 1);
+                } else {
+                    r = new Rule(grammer.get(j).getRight(), grammer.get(j).getLeft(), 0);
+                }
+                boolean presentInRules = false;
+                for (Rule rule : currentState.getRules()) {
                     if (rule.equals(r)) {
                         presentInRules = true;
                     }
@@ -279,10 +277,12 @@ public class SLR {
                 if (!presentInRules) {
 
                     currentState.addRule(r);
+
+                    if (!r.getAfterDot().isIsTerminal()) {
+                        addAnotherRules(currentState, r.getAfterDot());
+                    }
                 }
-                if (!r.getAfterDot().isIsTerminal()) {
-                    addAnotherRules(currentState, r.getAfterDot());
-                }
+
             }
 
         }
@@ -298,16 +298,10 @@ public class SLR {
             State DuplicateState = absentInStates(nextState);
             boolean loopHappend = false;
             if (DuplicateState != null) {
-//                if (DuplicateState.getNumber() == currentState.getNumber()) {
-//                    loopHappend = true;
-//
-//                } else {
-//                    nextState = DuplicateState;
-//                }
                 Vector v = new Vector(c, currentState.getNumber(), DuplicateState.getNumber());
                 vectors.add(v);
                 System.out.println("vector = " + v + "\n\n");
-            } else {//ToDOOO
+            } else {
                 nextState.setNumber(stateCounter);
                 stateCounter++;
                 states.add(nextState);
@@ -329,13 +323,11 @@ public class SLR {
 
         ArrayList<MyCharacter> vecChars = new ArrayList<>();
 
-        boolean presentInVC = false;
         for (Rule r : currentState.getRules()) {
 
             if (r.getAfterDot().getC() != '%') {
-
+                boolean presentInVC = false;
                 for (MyCharacter vc : vecChars) {
-
                     if (r.getAfterDot().equals(vc)) {
                         presentInVC = true;
                     }
@@ -413,5 +405,41 @@ S->R
 L->bR
 L->d
 R->L
+---
+0to9 state
+
+
+
+6
+E->EaT
+E->T
+T->TF
+F->Fb
+F->a
+F->b
+---
+0to8 state
+
+
+
+4
+S->AaAb
+S->BbBa
+A->#
+B->#
+---
+0to9 state
+
+
+7
+S->Ea
+E->EbT
+E->T
+T->FcT
+T->F
+F->dEe
+F->f
+---
+13
 
  */
