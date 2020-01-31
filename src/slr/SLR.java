@@ -48,16 +48,15 @@ public class SLR {
         //Fill vectors and states; 
         makeDiagram(); // marzi's work
 
-        int count = 0;
+        
         for (State s : states) {
-            System.out.println("state" + count + " " + s + "\n");
-            count++;
+            System.out.println("state" + s.getNumber() + " : " + s + "\n");
         }
-        count = 0;
-
-        System.out.println("\n\n");
+        
+        int count = 0;
+        System.out.println("\n");
         for (Vector v : vectors) {
-            System.out.println("vector" + count + " " + v + "\n");
+            System.out.println("vector" + count + " : " + v + "\n");
             count++;
         }
 

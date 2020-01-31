@@ -46,7 +46,7 @@ public class Vector {
 
     @Override
     public String toString() {
-        return "Vector{" + "value=" + value + "  /////   " + source + " ------> " + Destination + '}';
+        return  source + " ---"+value+"---> " + Destination ;
     }
 
   
